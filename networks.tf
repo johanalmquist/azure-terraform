@@ -7,13 +7,13 @@ variable "address_spaces" {
 variable "subnet_prefixes" {
   type        = list(string)
   description = "List of subnets"
-  default     = ["10.0.1.0/24", "10.0.2.0/24"]
+  default     = ["10.0.0.0/24", "10.0.1.0/24", "10.0.2.0/24"]
 }
 
 variable "subnet_names" {
   type        = list(string)
   description = "List of subnet names"
-  default     = ["terraform-1", "terraform-2"]
+  default     = ["AzureBastionSubnet", "terraform-1", "terraform-2"]
 }
 
 module "vnet" {
