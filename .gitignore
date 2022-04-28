@@ -1,0 +1,8 @@
+dev
+.env
+.hcl
+.terraform.lock.hcl
+.terraform
+*.tfplan
+*.tfstate
+*.backup
