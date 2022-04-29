@@ -1,5 +1,8 @@
+resource "random_pet" "client" {
+}
+
 resource "azurerm_network_interface" "nics" {
-  name                = "vmlinux-interface"
+  name                = "${random_pet.client.id}-interface"
   location            = var.location
   resource_group_name = var.resource_group_name
 
@@ -14,7 +17,7 @@ resource "azurerm_network_interface" "nics" {
 }
 
 resource "azurerm_linux_virtual_machine" "linuxvm" {
-  name                            = "linux"
+  name                            = random_pet.client.id
   resource_group_name             = azurerm_resource_group.terrform.name
   location                        = azurerm_resource_group.terrform.location
   size                            = "Standard_B1s"
