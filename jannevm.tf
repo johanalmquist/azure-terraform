@@ -1,22 +1,21 @@
-
-
-resource "azurerm_network_interface" "nics" {
-  count               = 2
-  name                = "${random_pet.project_name.id}-interface-${count.index}"
+resource "azurerm_network_interface" "janne_nic" {
+  name                = "janne-pc-nic"
   location            = var.location
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.terrform.name
 
   ip_configuration {
-    name                          = "internal"
-    subnet_id                     = azurerm_subnet.linux_hosts.id
+    name                          = "janne-internal"
+    subnet_id                     = azurerm_subnet.janne_hosts.id
     private_ip_address_allocation = "Dynamic"
   }
+
   tags = local.common_tags
+
 }
 
-resource "azurerm_linux_virtual_machine" "linuxvm" {
-  count                           = 2
-  name                            = "${random_pet.project_name.id}-${count.index}"
+
+resource "azurerm_linux_virtual_machine" "janne_linuxvm" {
+  name                            = "janne-pc"
   resource_group_name             = azurerm_resource_group.terrform.name
   location                        = azurerm_resource_group.terrform.location
   size                            = "Standard_B1s"
@@ -24,7 +23,7 @@ resource "azurerm_linux_virtual_machine" "linuxvm" {
   admin_password                  = var.vm_password
   disable_password_authentication = false
   network_interface_ids = [
-    azurerm_network_interface.nics[count.index].id
+    azurerm_network_interface.janne_nic.id
   ]
 
   os_disk {
@@ -38,6 +37,4 @@ resource "azurerm_linux_virtual_machine" "linuxvm" {
     version   = "latest"
   }
   tags = local.common_tags
-
-
 }
