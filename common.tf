@@ -36,5 +36,6 @@ locals {
   common_tags = {
     certPath    = var.cert_path
     environment = var.environment
+    project     = random_pet.project_name.id
   }
 }
