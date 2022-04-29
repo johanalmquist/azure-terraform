@@ -11,6 +11,17 @@ variable "resource_group_name" {
 
 }
 
+variable "vm_username" {
+  type        = string
+  description = "Username to login in to linuxvm"
+  sensitive   = true
+}
+
+variable "vm_password" {
+  type        = string
+  description = "Password to login into linuxvm"
+  sensitive   = true
+}
 
 locals {
   common_tags = {
