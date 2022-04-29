@@ -14,7 +14,6 @@ variable "resource_group_name" {
 variable "vm_username" {
   type        = string
   description = "Username to login in to linuxvm"
-  sensitive   = true
 }
 
 variable "vm_password" {
@@ -23,9 +22,19 @@ variable "vm_password" {
   sensitive   = true
 }
 
+variable "cert_path" {
+  type    = string
+  default = ""
+}
+
+variable "environment" {
+  type    = string
+  default = ""
+}
+
 locals {
   common_tags = {
-    certPath    = "AZ-700"
-    environment = "testing"
+    certPath    = var.cert_path
+    environment = var.environment
   }
 }
